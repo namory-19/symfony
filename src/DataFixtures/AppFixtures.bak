@@ -1,0 +1,30 @@
+<?php
+
+namespace App\DataFixtures;
+
+use App\Entity\Category;
+use App\Entity\Deal;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
+
+class AppFixtures extends Fixture
+{
+    public function load(ObjectManager $manager): void
+    {
+        for ($i = 0; $i < 40; $i++) {
+            $deal = new Deal();
+            $deal->setName('deal '.$i);
+            $deal->setDescription('description deal '.$i);
+            $deal->autoCreatedAt();
+            $deal->setUpdatedAt(new \DateTime('now'));
+            $deal->setPrice(mt_rand(10,100));
+            $deal->setEnable(1);
+            $manager->persist($deal);
+
+            $category = new Category();
+            $category->setName('$category '.$i);
+            $manager->persist($category);
+        }
+        $manager->flush();
+    }
+}
