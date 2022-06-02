@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ site.name }}{% endblock %}
+
+{% block body %}
+    <h1>List Category</h1>
+    {% for category in categories %}
+        <h2>{{ category.name|e | upper }} : </h2>
+        {% for deal in category.deals %}
+            <ul>
+                <li>{{ deal.name|e }} : {{ deal.price|e }} [ {{ deal.description | raw }} ]
+                    - {{ deal.createdAt| date('m/d/y') }}</li>
+            </ul>
+        {% endfor %}
+    {% endfor %}
+
+{% endblock %}
+
+
+
